@@ -1,10 +1,4 @@
-#setwd("C:/Users/mkim3/OneDrive - University of Florida/teaching_UG research/Battery prognostics Bubis")
-#setwd("/Users/beccabubis/Desktop/Undergraduate Research/Datasets/Calce Data")
-
-
-#setwd("/Users/beccabubis/Desktop/Undergraduate Research")
-setwd("C:/Users/Rebecca Bubis/OneDrive - University of Florida/Desktop/Undergraduate Research")
-
+setwd("/Users/beccab/Desktop/Undergraduate Research")
 #install.packages(c('tidyverse', 'openxlsx', 'readxl', 'ggplot2', 'Matrix', 'GauPro','neuralnet', 'kernlab', 'lme4'))
 
 library(tidyverse) # transforms data
