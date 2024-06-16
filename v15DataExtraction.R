@@ -1,15 +1,3 @@
-#setwd("C:/Users/mkim3/OneDrive - University of Florida/teaching_UG research/Battery prognostics Bubis")
-#setwd("/Users/beccabubis/Desktop/Undergraduate Research/Datasets/Calce Data")
-
-
-setwd("/Users/beccabubis/Desktop/Undergraduate Research")
-
-# install.packages(c("tidyverse", "openxlsx", "readxl")) 
-library(tidyverse)
-library(openxlsx)
-library(readxl)
-library(ggplot2)
-
 #Note: recursive to check subdirectories
 #excel_files <- list.files(path = "Peoriodical_Characterization_Data", pattern = ".xlsx", full.names = TRUE, recursive = TRUE)
 #excel_files <- list.files(path = "Peoriodical Characterization Data", pattern = ".xlsx", full.names = TRUE, recursive = TRUE)
@@ -46,7 +34,7 @@ counter <- 1  # Initialize counter
 #  }
 #}
 
-#write.csv(all_data, "/Users/beccabubis/Desktop/Undergraduate Research/Coding Portion\\all_data.csv", row.names=FALSE)
+#write.csv(all_data, "/Users/beccab/Desktop/Undergraduate Research/Coding Portion\\all_data.csv", row.names=FALSE)
 
 # Add new columns to all_data dataframe
 # Used case_when function to vectorise if_else() statements
@@ -103,50 +91,5 @@ sum_data <- sum_data %>%
         TRUE ~ "2"
       )
     )
-
-sum_data$Condition <- factor(sum_data$Condition)
-
-ggplot(sum_data[sum_data[,"Stress Factor 1"]==10,], aes(x = Cycle, y = Discharge_Capacity.Ah., color = Condition)) +
-  geom_point() +
-  geom_line(aes(color=Condition)) +
-  theme_minimal() 
-
-
-# Common to use discharge capacity since it reflects the health of the battery
-# Currently using Cycle_Index column to graph, will change it later
-plot(all_data$Cycle, all_data$`Stress Factor 1 (ºC)`, type = "l", col = "blue", xlab = "Cycle", ylab = "Temperature", main = "Discharge Capacity vs. Cycle for RUL Estimation")
-
-
-# Model 1: Linear Mixed-Effect Regression
-
-# install.packages("emmeans")
-# install.packages("sjstats")
-# install.packages("lme4")
-# install.packages("lmerTest")
-# install.packages("MuMIn")
-# install.packages("Matrix")
-
-library(emmeans)  # estimated marginal means and p values
-library(sjstats) # partial eta squared and cohens f effect size
-library(lme4) # estimated the multi level model (random intercept)
-library(lmerTest) # gives more comprehensive anova output with p values
-library(MuMIn) # R2 for the model
-library(Matrix)
-
-# discharge capacity predicted by SF1
-SF1eff <- lmer(sum_data$Discharge_Capacity.Ah. ~ as.factor(sum_data$SF1) + (1|sum_data$SF2)) # SF2 is random effect/variable
-
-# summary of model
-summary(SF1eff)
-
-# show model as anova: statistically significant?
-anova(SF1eff)
-
-# partial eta sq: how large of an effect the independent variable(s) had on the dependent variable
-effectsize::eta_squared(SF1eff, partial = TRUE)
-
-
-
-# Model 2: Gaussian Process Regression
 
 
